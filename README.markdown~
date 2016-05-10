@@ -30,8 +30,4 @@ These tools include:
 
 ### Usage
 
-If you just want a Google Cloud SDK installation with the default options you can run:
 
-```
-include gcloudsdk
-```
