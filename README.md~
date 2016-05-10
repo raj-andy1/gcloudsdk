@@ -91,3 +91,9 @@ This module is based on work by Ranjith Kumar.
 ### Development
 Interested contributors can touch base with Ranjith (kumar.sree45@gmail.com)
 
+[overview]: https://github.com/RanjthKumar45/puppet-gcloudsdkt#overview
+[module-description]: https://github.com/RanjthKumar45/puppet-gcloudsdkt#module-description
+[usage]: https://github.com/RanjthKumar45/puppet-gcloudsdkt#usage
+[authors]: https://github.com/RanjthKumar45/puppet-gcloudsdkt#authors
+[development]: https://github.com/RanjthKumar45/puppet-gcloudsdkt#development
+
