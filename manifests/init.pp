@@ -2,13 +2,13 @@
 #
 # This module manages gcloudsdk
 #
-# Parameters: none
+# Parameters: https://github.com/RanjthKumar45/puppet-gcloudsdk#usage
 #
-# Actions:
+# Actions: Download and Install Google Cloud Sdk.
 #
-# Requires: see Modulefile
+# Requires: puppetlabs/stdlib,camptocamp/archive
 #
-# Sample Usage:
+# Sample Usage: https://github.com/RanjthKumar45/puppet-gcloudsdk#usage
 #
 class gcloudsdk (
   $version = $::gcloudsdk::params::version, 
@@ -26,6 +26,22 @@ class gcloudsdk (
   $is_install_gcd_emulator = $::gcloudsdk::params::is_install_gcd_emulator,
   ) inherits ::gcloudsdk::params {
     
+  #Validate Tools Installation Set up
+  validate_bool($is_install_gcloud)
+  validate_bool($is_install_gsutil)
+  validate_bool($is_install_core)
+  validate_bool($is_install_bq)
+  validate_bool($is_install_kubectl)
+  validate_bool($is_install_app_engine_python)
+  validate_bool($is_install_app_engine_java)
+  validate_bool($is_install_beta)
+  validate_bool($is_install_alpha)
+  validate_bool($is_install_pubsub_emulator)
+  validate_bool($is_install_gcd_emulator)
+  
+  # Validates if the installation directory path exists
+  validate_absolute_path($install_dir)
+  
   # Check the Architecture of Node to form the download URL
   if $::architecture == 'amd64' or $::architecture == 'x86_64' {
     $arch = 'x86_64'
@@ -35,7 +51,7 @@ class gcloudsdk (
 
   # GCloud SDK File Name
   if $version == 'LATEST' {
-    $download_file_name = "google-cloud-sdk-107.0.0-linux-${arch}"
+    $download_file_name = "google-cloud-sdk-108.0.0-linux-${arch}"
   } else {
     $download_file_name = "google-cloud-sdk-${version}-linux-${arch}"
   }
@@ -44,8 +60,7 @@ class gcloudsdk (
   # GCloud SDK Download URL
   $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}.tar.gz"
 
-  # Validates if the installation directory path exists
-  validate_absolute_path($install_dir)
+
 
   notice($download_source)
 
