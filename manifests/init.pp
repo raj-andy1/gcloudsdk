@@ -102,7 +102,7 @@ class gcloudsdk (
     logoutput => on_failure,
   }  
   
-  # The below code will install the selected addtional components.
+  # The below code will install the selected addtional components. (only if any additional components is set to true)
   file { "/tmp/sdk_add_components.sh":
     ensure  => file,
     mode => '0755',
@@ -114,7 +114,7 @@ class gcloudsdk (
     logoutput => on_failure,
   } 
   
-  # The below code will Update the components to latest version.
+  # The below code will Update the components to latest version. (only if version is set to LATEST)
   file { "/tmp/sdk_update_components.sh":
     ensure  => file,
     mode => '0755',
@@ -126,7 +126,7 @@ class gcloudsdk (
     logoutput => on_failure,
   } 
   
-  # The below code will uninstall the selected default components.
+  # The below code will uninstall the selected default components. (only if default components installation is set to false)
   file { "/tmp/sdk_remove_components.sh":
     ensure  => file,
     mode => '0755',
