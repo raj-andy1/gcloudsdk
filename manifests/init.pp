@@ -34,7 +34,12 @@ class gcloudsdk (
   }
 
   # GCloud SDK File Name
-  $download_file_name = "google-cloud-sdk-${version}-linux-${arch}"
+  if $version == 'LATEST' {
+    $download_file_name = "google-cloud-sdk-107.0.0-linux-${arch}"
+  } else {
+    $download_file_name = "google-cloud-sdk-${version}-linux-${arch}"
+  }
+  
 
   # GCloud SDK Download URL
   $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}.tar.gz"
@@ -94,12 +99,24 @@ class gcloudsdk (
     logoutput => on_failure,
   } 
   
+  # The below code will Update the components to latest version.
+  file { "/tmp/sdk_update_components.sh":
+    ensure  => file,
+    mode => '0755',
+    content => template('gcloudsdk/sdk_update_components.sh.erb'),
+    require => Exec['Add Components'],
+  }-> exec { 'Update Components':
+    provider  => shell,
+    command   => "sh /tmp/sdk_update_components.sh",
+    logoutput => on_failure,
+  } 
+  
   # The below code will uninstall the selected default components.
   file { "/tmp/sdk_remove_components.sh":
     ensure  => file,
     mode => '0755',
     content => template('gcloudsdk/sdk_remove_components.sh.erb'),
-    require => Exec['Add Components'],
+    require => Exec['Update Components'],
   }-> exec { 'Remove Components':
     provider  => shell,
     command   => "sh /tmp/sdk_remove_components.sh",

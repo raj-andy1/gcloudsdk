@@ -5,7 +5,7 @@ class gcloudsdk::params {
   # Checks for linux Kernel
   case $::kernel {
     'linux' : {
-      $version = '108.0.0'
+      $version = 'LATEST'
       $is_install_gcloud = true
       $is_install_gsutil = true
       $is_install_core = true
