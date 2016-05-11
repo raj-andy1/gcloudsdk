@@ -20,7 +20,7 @@
     }],
   "source": "https://github.com/RanjthKumar45/puppet-gcloudsdk",
   "issues_url": "https://github.com/RanjthKumar45/puppet-gcloudsdk",
-  "summary": "Download and Installs Google Cloud SDK. Google Cloud SDK is a set of tools that you can use to manage resources and applications hosted on Google Cloud Platform. These tools include the gcloud command-line tool, as well as gsutil and bq.",
+  "summary": "Installs Google Cloud SDK with selected tools",
   "tags": [
   	"google-cloud-sdk",
   	"sdk",
@@ -31,5 +31,5 @@
     "cloud",
     "storage"
   ],
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
