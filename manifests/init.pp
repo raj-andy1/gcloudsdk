@@ -79,6 +79,7 @@ class gcloudsdk (
     creates => "${install_path}/bin/gcloud",
     cwd     => "${install_dir}/google-cloud-sdk",
     command => '/bin/echo "" | ./install.sh --usage-reporting false --disable-installation-options --bash-completion false',
+    require => Archive["${download_file_name}.tar.gz"],
     #require => Archive::Extract[$download_file_name],
   }
   
@@ -89,7 +90,7 @@ class gcloudsdk (
     ensure  => file,
     mode    => '0755',
     content => template('gcloudsdk/gcloud_path.sh.erb'),
-    require => Archive::Extract[$download_file_name],
+    require => Archive["${download_file_name}.tar.gz"],
   }-> exec { 'set gcloud':
     provider  => shell,
     command   => 'sh /etc/profile.d/gcloud_path.sh',
