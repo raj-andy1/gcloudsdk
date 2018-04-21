@@ -13,13 +13,13 @@
   "operatingsystem_support": [{
   	"operatingsystem": "CentOS, Ubuntu, Debian"
   }],
-  "project_page": "https://github.com/RanjthKumar45/puppet-gcloudsdk",
+  "project_page": "https://github.com/raj-andy1/gcloudsdk",
   "requirements": [{
       "name": "puppet",
       "version_requirement": ">= 3.8.4 < 5.0.0"
     }],
-  "source": "https://github.com/RanjthKumar45/puppet-gcloudsdk",
-  "issues_url": "https://github.com/RanjthKumar45/puppet-gcloudsdk",
+  "source": "https://github.com/raj-andy1/gcloudsdk",
+  "issues_url": "https://github.com/raj-andy1/gcloudsdk",
   "summary": "Installs Google Cloud SDK with selected tools",
   "tags": [
   	"google-cloud-sdk",
