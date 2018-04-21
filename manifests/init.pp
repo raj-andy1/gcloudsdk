@@ -64,26 +64,12 @@ class gcloudsdk (
 
   notice($download_source)
 
-  # The below block of code downloads the google-cloud-sdk archive file.
-  archive::download{ "${download_file_name}.tar.gz":
-    url        => $download_source,
-    src_target => '/tmp',
-    checksum   => false,
-  }
-  
   # The below block of code extracts the google-cloud-sdk archive file.
-
   archive { "${download_file_name}.tar.gz":
     extract => true,
     source => $download_source
     target => $install_dir,
  }
-
-  archive::extract { $download_file_name:
-    target     => $install_dir,
-    src_target =>'/tmp',
-    require    => Archive::Download["${download_file_name}.tar.gz"],
-  }
   
   # The below block of code installs the google-cloud-sdk archive file.
   $install_path = "${install_dir}/google-cloud-sdk"
