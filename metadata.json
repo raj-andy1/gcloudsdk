@@ -9,7 +9,7 @@
   	}	
   ],
   "license": "Apache-2.0",
-  "name": "RanjithKumar45-gcloudsdk",
+  "name": "gcloudsdk",
   "operatingsystem_support": [{
   	"operatingsystem": "CentOS, Ubuntu, Debian"
   }],
