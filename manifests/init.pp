@@ -69,6 +69,7 @@ class gcloudsdk (
     extract => true,
     source => $download_source,
     target => $install_dir,
+    before => Exec['install Google Cloud SDK'],
  }
   
   # The below block of code installs the google-cloud-sdk archive file.
@@ -78,7 +79,7 @@ class gcloudsdk (
     creates => "${install_path}/bin/gcloud",
     cwd     => "${install_dir}/google-cloud-sdk",
     command => '/bin/echo "" | ./install.sh --usage-reporting false --disable-installation-options --bash-completion false',
-    require => Archive::Extract[$download_file_name],
+    #require => Archive::Extract[$download_file_name],
   }
   
   
@@ -132,8 +133,8 @@ class gcloudsdk (
   }
   
   
-  $ua_module_name = 'RanjithKumar45/gcloudsdk'
-  $ua_module_version = "${ua_module_name}/1.2.0"
+  #$ua_module_name = 'RanjithKumar45/gcloudsdk'
+  #$ua_module_version = "${ua_module_name}/1.2.0"
   
   file { '/tmp/agent.sh':
     ensure  => file,
