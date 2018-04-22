@@ -51,25 +51,22 @@ class gcloudsdk (
 
   # GCloud SDK File Name
   if $version == 'LATEST' {
-    $download_file_name = "google-cloud-sdk-108.0.0-linux-${arch}"
+    $download_file_name = "google-cloud-sdk-108.0.0-linux-${arch}.tar.gz"
   } else {
-    $download_file_name = "google-cloud-sdk-${version}-linux-${arch}"
+    $download_file_name = "google-cloud-sdk-${version}-linux-${arch}.tar.gz"
   }
   
 
   # GCloud SDK Download URL
   $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}.tar.gz"
 
-
-
   notice($download_source)
 
   # The below block of code extracts the google-cloud-sdk archive file.
-  archive { "${download_file_name}.tar.gz":
+  archive { '/tmp/${download_file_name}':
     extract => true,
     source => $download_source,
     target => $install_dir,
-    before => Exec['install Google Cloud SDK'],
  }
   
   # The below block of code installs the google-cloud-sdk archive file.
@@ -79,8 +76,7 @@ class gcloudsdk (
     creates => "${install_path}/bin/gcloud",
     cwd     => "${install_dir}/google-cloud-sdk",
     command => '/bin/echo "" | ./install.sh --usage-reporting false --disable-installation-options --bash-completion false',
-    require => Archive["${download_file_name}.tar.gz"],
-    #require => Archive::Extract[$download_file_name],
+    require => Archive["${download_file_name}"],
   }
   
   
@@ -90,7 +86,7 @@ class gcloudsdk (
     ensure  => file,
     mode    => '0755',
     content => template('gcloudsdk/gcloud_path.sh.erb'),
-    require => Archive["${download_file_name}.tar.gz"],
+    require => Archive["${download_file_name}"],
   }-> exec { 'set gcloud':
     provider  => shell,
     command   => 'sh /etc/profile.d/gcloud_path.sh',
