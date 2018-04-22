@@ -62,7 +62,7 @@ class gcloudsdk (
   notice($download_source)
 
   # The below block of code extracts the google-cloud-sdk archive file.
-  archive { "/tmp/${download_file_name}":
+  archive { "/tmp/${download_file_name}.tar.gz":
     extract => true,
     source  => $download_source,
     target  => $install_dir,
