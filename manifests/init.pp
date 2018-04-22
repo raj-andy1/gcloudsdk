@@ -51,13 +51,13 @@ class gcloudsdk (
 
   # GCloud SDK File Name
   if $version == 'LATEST' {
-    $download_file_name = "google-cloud-sdk-108.0.0-linux-${arch}.tar.gz"
+    $download_file_name = "google-cloud-sdk-108.0.0-linux-${arch}"
   } else {
-    $download_file_name = "google-cloud-sdk-${version}-linux-${arch}.tar.gz"
+    $download_file_name = "google-cloud-sdk-${version}-linux-${arch}"
   }
 
   # GCloud SDK Download URL
-  $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}"
+  $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}.tar.gz"
 
   notice($download_source)
 
