@@ -25,7 +25,7 @@ class gcloudsdk (
   $is_install_pubsub_emulator = $::gcloudsdk::params::is_install_pubsub_emulator,
   $is_install_gcd_emulator = $::gcloudsdk::params::is_install_gcd_emulator,
   ) inherits ::gcloudsdk::params {
-    
+
   #Validate Tools Installation Set up
   validate_bool($is_install_gcloud)
   validate_bool($is_install_gsutil)
@@ -41,7 +41,7 @@ class gcloudsdk (
   
   # Validates if the installation directory path exists
   validate_absolute_path($install_dir)
-  
+
   # Check the Architecture of Node to form the download URL
   if $::architecture == 'amd64' or $::architecture == 'x86_64' {
     $arch = 'x86_64'
@@ -55,7 +55,6 @@ class gcloudsdk (
   } else {
     $download_file_name = "google-cloud-sdk-${version}-linux-${arch}.tar.gz"
   }
-  
 
   # GCloud SDK Download URL
   $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}.tar.gz"
@@ -67,8 +66,10 @@ class gcloudsdk (
     extract => true,
     source => $download_source,
     target => $install_dir,
+    before => [
+      Exec['install Google Cloud SDK'],
+      File['/etc/profile.d/gcloud_path.sh'], ]
  }
-  
   # The below block of code installs the google-cloud-sdk archive file.
   $install_path = "${install_dir}/google-cloud-sdk"
   exec { 'install Google Cloud SDK':
@@ -76,17 +77,13 @@ class gcloudsdk (
     creates => "${install_path}/bin/gcloud",
     cwd     => "${install_dir}/google-cloud-sdk",
     command => '/bin/echo "" | ./install.sh --usage-reporting false --disable-installation-options --bash-completion false',
-    require => Archive["${download_file_name}"],
   }
-  
-  
-  
+
   # The below code will set the google-cloud-sdk path inside the PATH env variable.
   file { '/etc/profile.d/gcloud_path.sh':
     ensure  => file,
     mode    => '0755',
     content => template('gcloudsdk/gcloud_path.sh.erb'),
-    require => Archive["${download_file_name}"],
   }-> exec { 'set gcloud':
     provider  => shell,
     command   => 'sh /etc/profile.d/gcloud_path.sh',
