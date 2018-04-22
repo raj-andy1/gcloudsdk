@@ -38,7 +38,7 @@ class gcloudsdk (
   validate_bool($is_install_alpha)
   validate_bool($is_install_pubsub_emulator)
   validate_bool($is_install_gcd_emulator)
-  
+
   # Validates if the installation directory path exists
   validate_absolute_path($install_dir)
 
@@ -64,12 +64,12 @@ class gcloudsdk (
   # The below block of code extracts the google-cloud-sdk archive file.
   archive { "/tmp/${download_file_name}":
     extract => true,
-    source => $download_source,
-    target => $install_dir,
-    before => [
+    source  => $download_source,
+    target  => $install_dir,
+    before  => [
       Exec['install Google Cloud SDK'],
       File['/etc/profile.d/gcloud_path.sh'], ]
- }
+      }
   # The below block of code installs the google-cloud-sdk archive file.
   $install_path = "${install_dir}/google-cloud-sdk"
   exec { 'install Google Cloud SDK':
@@ -89,7 +89,7 @@ class gcloudsdk (
     command   => 'sh /etc/profile.d/gcloud_path.sh',
     logoutput => on_failure,
   }
-  
+
   # The below code will install the selected addtional components. (only if any additional components is set to true)
   file { '/tmp/sdk_add_components.sh':
     ensure  => file,
@@ -101,7 +101,7 @@ class gcloudsdk (
     command   => 'sh /tmp/sdk_add_components.sh',
     logoutput => on_failure,
   }
-  
+
   # The below code will Update the components to latest version. (only if version is set to LATEST)
   file { '/tmp/sdk_update_components.sh':
     ensure  => file,
@@ -113,7 +113,7 @@ class gcloudsdk (
     command   => 'sh /tmp/sdk_update_components.sh',
     logoutput => on_failure,
   }
-  
+
   # The below code will uninstall the selected default components. (only if default components installation is set to false)
   file { '/tmp/sdk_remove_components.sh':
     ensure  => file,
@@ -125,11 +125,11 @@ class gcloudsdk (
     command   => 'sh /tmp/sdk_remove_components.sh',
     logoutput => on_failure,
   }
-  
-  
-  #$ua_module_name = 'RanjithKumar45/gcloudsdk'
-  #$ua_module_version = "${ua_module_name}/1.2.0"
-  
+
+
+  $ua_module_name = 'RanjithKumar45/gcloudsdk'
+  $ua_module_version = "${ua_module_name}/1.2.0"
+
   file { '/tmp/agent.sh':
     ensure  => file,
     mode    => '0755',
