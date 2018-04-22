@@ -57,7 +57,7 @@ class gcloudsdk (
   }
 
   # GCloud SDK Download URL
-  $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}.tar.gz"
+  $download_source = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${download_file_name}"
 
   notice($download_source)
 
