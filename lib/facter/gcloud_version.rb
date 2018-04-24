@@ -1,5 +1,5 @@
 Facter.add(:gcloud_version) do
-    confine :kernel => :'linux'
+    confine :kernel => 'linux'
     setcode do
         Facter::Core::Execution.execute('gcloud version --format=json')
     end
