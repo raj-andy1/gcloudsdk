@@ -6,9 +6,8 @@ Facter.add(:gcloud_sdk_version) do
             result = nil
             result = JSON.parse(Facter::Core::Execution.execute('gcloud version --format=json'))
             result['Google Cloud SDK']
+        rescue
+            nil
         end
-        result
-    rescue
-        nil
     end
 end
